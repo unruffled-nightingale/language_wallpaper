@@ -1,0 +1,1 @@
+A simple python application that updates your desktop background with a phrase and its translation.
