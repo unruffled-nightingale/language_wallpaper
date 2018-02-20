@@ -1,96 +1,120 @@
 import unittest
 
-from translate import French, Spanish, Italian, German, Portuguese
+from translate import English, French, Spanish, Italian, German, Portuguese
 
 
-class TestFrench(unittest.TestCase):
+class TestEnglish(unittest.TestCase):
 
-    def test_translate_simple(self):
-        french = French()
-        result = french.translate('speak')
-        self.assertEqual(result, 'parler')
+    @classmethod
+    def setUpClass(cls):
+        cls.lang = English()
 
-    def test_translate_hard(self):
-        french = French()
-        result = french.translate('He was scared that he had left early')
-        self.assertEqual(result, "Il avait peur qu'il soit parti tôt")
+    def test_iso6391(self):
+        self.assertEqual(self.lang.iso6391(), 'en')
 
-    def test_conjugate(self):
-        french = French()
-        result = french.conjugate('parler')
-        print(result)
+    def test_iso6392(self):
+        self.assertEqual(self.lang.iso6392(), 'eng')
 
+    def test_tenses(self):
+        pass
 
-class TestSpanish(unittest.TestCase):
+    def test_translate(self):
+        result = self.lang.translate('parler')
+        expected = 'speak'
+        self.assertEqual(result, expected)
 
-    def test_translate_simple(self):
-        spanish = Spanish()
-        result = spanish.translate('speak')
-        self.assertEqual(result, 'hablar')
+    def test_request_conjugations(self):
+        self.lang.request_conjugations('speak', 'present')
 
-    def test_translate_hard(self):
-        spanish = Spanish()
-        result = spanish.translate('He was scared that he had left early')
-        self.assertEqual(result, "Tenía miedo de haberse ido temprano")
+    def test_request_persons(self):
+        result = self.lang.request_persons('speak', 'present')
+        expected = ['firstsingular', 'secondsingular', 'thirdsingular', 'firstplural', 'secondplural', 'thirdplural']
+        self.assertEqual(result, expected)
 
-    def test_conjugate(self):
-        spanish = Spanish()
-        result = spanish.conjugate('hablar')
-        print(result)
+    def test_request_pronoun(self):
+        result = self.lang.request_pronouns('firstsingular')
+        expected = ['I']
+        self.assertEqual(result, expected)
 
-
-class TestItalian(unittest.TestCase):
-
-    def test_translate_simple(self):
-        italian = Italian()
-        result = italian.translate('speak')
-        self.assertEqual(result, 'parlare')
-
-    def test_translate_hard(self):
-        italian = Italian()
-        result = italian.translate('He was scared that he had left early')
-        self.assertEqual(result, "Tenía miedo de haberse ido temprano")
+    def test_get_conjugations(self):
+        result = self.lang.get_conjugations('speak', 'present')
+        expected = [{'person': 'firstsingular', 'conjugation': 'I speak'},
+                    {'person': 'secondsingular', 'conjugation': 'you speak'},
+                    {'person': 'thirdsingular', 'conjugation': 'he/she/it speaks'},
+                    {'person': 'firstplural', 'conjugation': 'we speak'},
+                    {'person': 'secondplural', 'conjugation': 'you speak'},
+                    {'person': 'thirdplural', 'conjugation': 'they speak'}]
+        self.assertEqual(result, expected)
 
     def test_conjugate(self):
-        italian = Italian()
-        result = italian.conjugate('parlare')
-        print(result)
+        result = self.lang.conjugate('speak')
+        expected = [{
+            'present': [{
+                'conjugation': 'I speak',
+                'person': 'firstsingular'
+            }, {
+                'conjugation': 'you speak',
+                'person': 'secondsingular'
+            }, {
+                'conjugation': 'he/she/it speaks',
+                'person': 'thirdsingular'
+            }, {
+                'conjugation': 'we speak',
+                'person': 'firstplural'
+            }, {
+                'conjugation': 'you speak',
+                'person': 'secondplural'
+            }, {
+                'conjugation': 'they speak',
+                'person': 'thirdplural'
+            }]
+        }, {
+            'future': [{
+                'conjugation': 'I will speak',
+                'person': 'firstsingular'
+            }, {
+                'conjugation': 'you will speak',
+                'person': 'secondsingular'
+            }, {
+                'conjugation': 'he/she/it will speaks',
+                'person': 'thirdsingular'
+            }, {
+                'conjugation': 'we will speak',
+                'person': 'firstplural'
+            }, {
+                'conjugation': 'you will speak',
+                'person': 'secondplural'
+            }, {
+                'conjugation': 'they will speak',
+                'person': 'thirdplural'
+            }]
+        }, {
+            'imperfect': [{
+                'conjugation': 'I was speaking',
+                'person': 'firstsingular'
+            }, {
+                'conjugation': 'you were speaking',
+                'person': 'secondsingular'
+            }, {
+                'conjugation': 'he/she/it was speaking',
+                'person': 'thirdsingular'
+            }, {
+                'conjugation': 'subcode/message were speaking',
+                'person': 'anypersonplural'
+            }]
+        }]
+        self.assertEqual(result, expected)
 
+    def test_get_verbs(self):
+        result = self.lang.get_verbs(' I like speaking')
+        expected = ['like', 'speak']
+        self.assertEqual(result, expected)
 
-class TestGerman(unittest.TestCase):
+    def test_proverb(self):
+        result = self.lang.proverb()
+        self.assertTrue(len(result) < 101)
+        self.assertTrue(type(result) == str)
 
-    def test_translate_simple(self):
-        german = German()
-        result = german.translate('speak')
-        self.assertEqual(result, 'sprechen')
-
-    def test_translate_hard(self):
-        german = German()
-        result = german.translate('He was scared that he had left early')
-        self.assertEqual(result, "Tenía miedo de haberse ido temprano")
-
-    def test_conjugate(self):
-        german = German()
-        result = german.conjugate('sprechen')
-        print(result)
-
-
-class TestPortuguese(unittest.TestCase):
-
-    def test_translate_simple(self):
-        portuguese = Portuguese()
-        result = portuguese.translate('speak')
-        self.assertEqual(result, 'falar')
-
-    def test_translate_hard(self):
-        portuguese = Portuguese()
-        result = portuguese.translate('He was scared that he had left early')
-        self.assertEqual(result, "Tenía miedo de haberse ido temprano")
-
-    def test_conjugate(self):
-        portuguese = Portuguese()
-        result = portuguese.conjugate('falar')
-        print(result)
 
 
 
