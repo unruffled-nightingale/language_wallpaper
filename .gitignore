@@ -7,3 +7,8 @@
 *.iml
 out
 gen
+/fonts
+/images
+*.jpg
+*.jpeg
+*.png
