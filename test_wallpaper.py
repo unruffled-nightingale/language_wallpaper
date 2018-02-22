@@ -1,4 +1,5 @@
 import unittest
+import os
 
 from wallpaper import Edit, Wallpaper
 
@@ -17,6 +18,10 @@ class TestEdit(unittest.TestCase):
 
 
 class TestWallpaper(unittest.TestCase):
+
+    def test_get_wallpaper_path(self):
+        path = Wallpaper().get_wallpaper_path()
+        self.assertTrue(os.path.isfile(path))
 
     def test_make_wallpaper(self):
         image_path = 'images\\default.jpg'

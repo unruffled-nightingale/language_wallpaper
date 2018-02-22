@@ -61,7 +61,7 @@ class Wallpaper(object):
             tense.set_font('OpenSans-Light.ttf', 14)
             tense.set_fill()
             tense_x = next_conjugation_x
-            tense_y = verb.position[1] + verb.font_size()[1] + 8
+            tense_y = verb.position[1] + verb.font_size()[1] + 10
             tense.set_position(tense_x, tense_y)
 
             wallpaper.write_text(tense.position, tense.text, tense.fill, tense.font)
@@ -72,7 +72,7 @@ class Wallpaper(object):
             conjugation.set_fill()
             # Get conjugation position from phrase position
             conjugation_x = next_conjugation_x
-            conjugation_y = tense_y + 20
+            conjugation_y = tense_y + 22
             conjugation.set_position(conjugation_x, conjugation_y)
             # Set the x co-ordinate for next conjugation based on the position and size of this co-ordinate
             next_conjugation_x = conjugation.position[0] + conjugation.font_size()[1] + 10
@@ -88,7 +88,7 @@ class Wallpaper(object):
         """
         # Haven't figured out how to get the current wallpaper,
         # so for the moment we default a stored image.
-        return 'image\\default.jpg'
+        return os.path.join('images','default.jpg')
 
     def set_wallpaper(self):
         """

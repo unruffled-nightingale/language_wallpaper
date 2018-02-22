@@ -15,49 +15,26 @@ class Main(object):
         phrase = self.known_language.proverb()
         translation = self.translated_language.translate(phrase)
         verbs = self.translated_language.get_verbs(translation)
-        verb = choice(verbs)
-        translated_verb = self.translated_language(verb)
-        conjugations = [self.stringify_conjugations(e) for e in self.translated_language.conjugate(verb)]
+        translated_verb = choice(verbs).title()
+        known_verb = self.known_language.translate(translated_verb).title()
+        conjugations = [self.stringify_conjugations(e) for e in self.translated_language.conjugate(translated_verb)]
 
         text = {'phrase': phrase,
                 'translation': translation,
-                'verbs': verb+'  '+translated_verb,
-                'conjugation': conjugations}
+                'verb': known_verb+'  '+translated_verb,
+                'conjugations': conjugations}
 
         # Make wallpaper
         Wallpaper().make_wallpaper(self.image_path, text)
 
-    def stringify_conjugations(self, conjugations):
-        conjugation = {
-            'tense': 'present',
-            'conjugations': [{
-                'conjugation': 'I speak',
-                'person': 'firstsingular'
-            }, {
-                'conjugation': 'you speak',
-                'person': 'secondsingular'
-            }, {
-                'conjugation': 'he/she/it speaks',
-                'person': 'thirdsingular'
-            }, {
-                'conjugation': 'we speak',
-                'person': 'firstplural'
-            }, {
-                'conjugation': 'you speak',
-                'person': 'secondplural'
-            }, {
-                'conjugation': 'they speak',
-                'person': 'thirdplural'
-            }]
-        }
+    def stringify_conjugations(self, conjugation):
         tense = conjugation['tense'].upper()
         conjugations = '\n'.join([e['conjugation'] for e in conjugation['conjugations']])
-        return tense + '\n' + conjugations
+        return {'tense': tense, 'conjugations': conjugations}
 
 if __name__ == '__main__':
     main = Main('English', 'French')
-    a = main.stringify_conjugations(1)
-    print(a)
+    main.main()
 
 
 
