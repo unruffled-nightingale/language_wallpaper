@@ -116,6 +116,139 @@ class TestEnglish(unittest.TestCase):
         self.assertTrue(type(result) == str)
 
 
+class TestFrench(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.lang = French()
+
+    def test_iso6391(self):
+        self.assertEqual(self.lang.iso6391(), 'fr')
+
+    def test_iso6392(self):
+        self.assertEqual(self.lang.iso6392(), 'fra')
+
+    def test_tenses(self):
+        pass
+
+    def test_translate(self):
+        result = self.lang.translate('speak')
+        expected = 'parler'
+        self.assertEqual(result, expected)
+
+    def test_request_conjugations(self):
+        self.lang.request_conjugations('parler', 'present')
+
+    def test_request_persons(self):
+        result = self.lang.request_persons('parler', 'present')
+        expected = ['firstsingular', 'secondsingular', 'thirdsingular', 'firstplural', 'secondplural', 'thirdplural']
+        self.assertEqual(result, expected)
+
+    def test_request_pronoun(self):
+        result = self.lang.request_pronouns('firstsingular')
+        expected = ['je']
+        self.assertEqual(result, expected)
+
+    def test_get_conjugations(self):
+        result = self.lang.get_conjugations('parler', 'present')
+        expected = [{
+            'conjugation': 'je parle',
+            'person': 'firstsingular'
+        }, {
+            'conjugation': 'tu parles',
+            'person': 'secondsingular'
+        }, {
+            'conjugation': 'il/elle/on parle',
+            'person': 'thirdsingular'
+        }, {
+            'conjugation': 'nous parlons',
+            'person': 'firstplural'
+        }, {
+            'conjugation': 'vous parlez',
+            'person': 'secondplural'
+        }, {
+            'conjugation': 'ils/elles parlent',
+            'person': 'thirdplural'
+        }]
+        self.assertEqual(result, expected)
+
+    def test_conjugate(self):
+        result = self.lang.conjugate('parler')
+        expected = [{
+            'tense': 'present',
+            'conjugations': [{
+                'person': 'firstsingular',
+                'conjugation': 'je parle'
+            }, {
+                'person': 'secondsingular',
+                'conjugation': 'tu parles'
+            }, {
+                'person': 'thirdsingular',
+                'conjugation': 'il/elle/on parle'
+            }, {
+                'person': 'firstplural',
+                'conjugation': 'nous parlons'
+            }, {
+                'person': 'secondplural',
+                'conjugation': 'vous parlez'
+            }, {
+                'person': 'thirdplural',
+                'conjugation': 'ils/elles parlent'
+            }]
+        }, {
+            'tense': 'future',
+            'conjugations': [{
+                'person': 'firstsingular',
+                'conjugation': 'je parlerai'
+            }, {
+                'person': 'secondsingular',
+                'conjugation': 'tu parleras'
+            }, {
+                'person': 'thirdsingular',
+                'conjugation': 'il/elle/on parlera'
+            }, {
+                'person': 'firstplural',
+                'conjugation': 'nous parlerons'
+            }, {
+                'person': 'secondplural',
+                'conjugation': 'vous parlerez'
+            }, {
+                'person': 'thirdplural',
+                'conjugation': 'ils/elles parleront'
+            }]
+        }, {
+            'tense': 'imperfect',
+            'conjugations': [{
+                'person': 'firstsingular',
+                'conjugation': 'je parlais'
+            }, {
+                'person': 'secondsingular',
+                'conjugation': 'tu parlais'
+            }, {
+                'person': 'thirdsingular',
+                'conjugation': 'il/elle/on parlait'
+            }, {
+                'person': 'firstplural',
+                'conjugation': 'nous parlions'
+            }, {
+                'person': 'secondplural',
+                'conjugation': 'vous parliez'
+            }, {
+                'person': 'thirdplural',
+                'conjugation': 'ils/elles parlaient'
+            }]
+        }]
+        self.assertEqual(result, expected)
+
+    def test_get_verbs(self):
+        result = self.lang.get_verbs("Je parle")
+        expected = ['parler']
+        self.assertEqual(result, expected)
+
+    def test_proverb(self):
+        result = self.lang.proverb()
+        self.assertTrue(len(result) < 101)
+        self.assertTrue(type(result) == str)
 
 
 if __name__ == '__main__':
