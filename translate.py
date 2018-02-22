@@ -85,7 +85,7 @@ class Language(object):
     def conjugate(self, verb):
         conjugations = []
         for tense in self.tenses():
-            conjugations.append({tense: self.get_conjugations(verb, tense)})
+            conjugations.append({'tense': tense, 'conjugations': self.get_conjugations(verb, tense)})
         return conjugations
 
     def get_verbs(self, text):
