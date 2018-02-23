@@ -101,7 +101,9 @@ class Language(object):
         for soup in soup.find_all('ul', recursive=False):
             try:
                 proverbs.append(soup.find('li', recursive=False).find('i', recursive=False).text)
+                print('good')
             except AttributeError:
+                print('bad')
                 # Occasionally we cannot find a <i> tag which throws an attribute error when calling .text
                 # In this instance, we just skip the proverb.
                 pass

@@ -46,7 +46,7 @@ class Wallpaper(object):
         verb.set_fill()
         # Get verb position from phrase position
         verb_x = phrase.position[0] + 8
-        verb_y = translation.position[1] + translation.font_size()[1] + 15
+        verb_y = translation.position[1] + translation.font_size()[1] + 20
         verb.set_position(verb_x, verb_y)
 
         wallpaper.write_text(verb.position, verb.text, verb.fill, verb.font)
@@ -61,7 +61,7 @@ class Wallpaper(object):
             tense.set_font('OpenSans-Light.ttf', 14)
             tense.set_fill()
             tense_x = next_conjugation_x
-            tense_y = verb.position[1] + verb.font_size()[1] + 10
+            tense_y = verb.position[1] + verb.font_size()[1] + 13
             tense.set_position(tense_x, tense_y)
 
             wallpaper.write_text(tense.position, tense.text, tense.fill, tense.font)

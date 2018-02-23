@@ -5,3 +5,4 @@ PROBLEMS:
 Reflexive verbs don't work
 The part_of_speech API returns different response formtas for different languages
 Conjugations aren't great
+Not getting enough proverbs
