@@ -16,7 +16,7 @@ class TestEnglish(unittest.TestCase):
         self.assertEqual(self.lang.iso6392(), 'eng')
 
     def test_tenses(self):
-        pass
+        self.assertEqual(self.lang.tenses(), ['present', 'future', 'imperfect'])
 
     def test_translate(self):
         result = self.lang.translate('parler')
@@ -129,7 +129,7 @@ class TestFrench(unittest.TestCase):
         self.assertEqual(self.lang.iso6392(), 'fra')
 
     def test_tenses(self):
-        pass
+        self.assertEqual(self.lang.tenses(), ['present', 'future', 'imperfect'])
 
     def test_translate(self):
         result = self.lang.translate('speak')
@@ -243,6 +243,141 @@ class TestFrench(unittest.TestCase):
     def test_get_verbs(self):
         result = self.lang.get_verbs("Je parle")
         expected = ['parler']
+        self.assertEqual(result, expected)
+
+    def test_proverb(self):
+        result = self.lang.proverb()
+        self.assertTrue(len(result) < 101)
+        self.assertTrue(type(result) == str)
+
+
+class TestSpanish(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.lang = Spanish()
+
+    def test_iso6391(self):
+        self.assertEqual(self.lang.iso6391(), 'es')
+
+    def test_iso6392(self):
+        self.assertEqual(self.lang.iso6392(), 'spa')
+
+    def test_tenses(self):
+        self.assertEqual(self.lang.tenses(), ['present', 'future', 'imperfect'])
+
+    def test_translate(self):
+        result = self.lang.translate('speak')
+        expected = 'hablar'
+        self.assertEqual(result, expected)
+
+    def test_request_conjugations(self):
+        self.lang.request_conjugations('hablar', 'present')
+
+    def test_request_persons(self):
+        result = self.lang.request_persons('hablar', 'present')
+        expected = ['firstsingular', 'secondsingular', 'thirdsingular', 'firstplural', 'secondplural', 'thirdplural']
+        self.assertEqual(result, expected)
+
+    def test_request_pronoun(self):
+        result = self.lang.request_pronouns('firstsingular')
+        expected = ['yo']
+        self.assertEqual(result, expected)
+
+    def test_get_conjugations(self):
+        result = self.lang.get_conjugations('hablar', 'present')
+        expected = [{
+            'person': 'firstsingular',
+            'conjugation': 'yo hablo'
+        }, {
+            'person': 'secondsingular',
+            'conjugation': 'tú hablas'
+        }, {
+            'person': 'thirdsingular',
+            'conjugation': 'él/ella/Vd habla'
+        }, {
+            'person': 'firstplural',
+            'conjugation': 'nosotros hablamos'
+        }, {
+            'person': 'secondplural',
+            'conjugation': 'vosotros habláis'
+        }, {
+            'person': 'thirdplural',
+            'conjugation': 'ellos/ellas/Vds hablan'
+        }]
+        self.assertEqual(result, expected)
+
+    def test_conjugate(self):
+        result = self.lang.conjugate('hablar')
+        expected = [{
+            'tense': 'present',
+            'conjugations': [{
+                'conjugation': 'yo hablo',
+                'person': 'firstsingular'
+            }, {
+                'conjugation': 'tú hablas',
+                'person': 'secondsingular'
+            }, {
+                'conjugation': 'él/ella/Vd habla',
+                'person': 'thirdsingular'
+            }, {
+                'conjugation': 'nosotros hablamos',
+                'person': 'firstplural'
+            }, {
+                'conjugation': 'vosotros habláis',
+                'person': 'secondplural'
+            }, {
+                'conjugation': 'ellos/ellas/Vds hablan',
+                'person': 'thirdplural'
+            }]
+        }, {
+            'tense': 'future',
+            'conjugations': [{
+                'conjugation': 'yo hablaré',
+                'person': 'firstsingular'
+            }, {
+                'conjugation': 'tú hablarás',
+                'person': 'secondsingular'
+            }, {
+                'conjugation': 'él/ella/Vd hablará',
+                'person': 'thirdsingular'
+            }, {
+                'conjugation': 'nosotros hablaremos',
+                'person': 'firstplural'
+            }, {
+                'conjugation': 'vosotros hablaréis',
+                'person': 'secondplural'
+            }, {
+                'conjugation': 'ellos/ellas/Vds hablarán',
+                'person': 'thirdplural'
+            }]
+        }, {
+            'tense': 'imperfect',
+            'conjugations': [{
+                'conjugation': 'yo hablaba',
+                'person': 'firstsingular'
+            }, {
+                'conjugation': 'tú hablabas',
+                'person': 'secondsingular'
+            }, {
+                'conjugation': 'él/ella/Vd hablaba',
+                'person': 'thirdsingular'
+            }, {
+                'conjugation': 'nosotros hablábamos',
+                'person': 'firstplural'
+            }, {
+                'conjugation': 'vosotros hablabais',
+                'person': 'secondplural'
+            }, {
+                'conjugation': 'ellos/ellas/Vds hablaban',
+                'person': 'thirdplural'
+            }]
+        }]
+        self.assertEqual(result, expected)
+
+    def test_get_verbs(self):
+        result = self.lang.get_verbs("Yo hablo")
+        expected = ['hablar']
         self.assertEqual(result, expected)
 
     def test_proverb(self):
