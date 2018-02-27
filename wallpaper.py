@@ -111,7 +111,9 @@ class Edit(object):
         """
         Saves the edited image.
         """
-        self.image.save('wallpaper.png', quality=100)
+        parent_dir = os.path.dirname(os.path.realpath(__file__))
+        image_path = os.path.join(parent_dir, 'wallpaper.png')
+        self.image.save(image_path, quality=100)
 
     def write_text(self, position, text, fill, font):
         """
@@ -200,7 +202,8 @@ class Text(object):
         self.fill = (255, 255, 255, 255)
 
     def set_font(self, font_name, font_size):
-        self.font = ImageFont.truetype('.\\fonts\\' + font_name, font_size)
+        font_path = os.path.dirname(os.path.realpath(__file__))+'\\fonts\\'
+        self.font = ImageFont.truetype(font_path + font_name, font_size)
 
     def font_size(self):
         return self.draw.textsize(self.text, self.font)
