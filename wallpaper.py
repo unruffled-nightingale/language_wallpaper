@@ -21,7 +21,7 @@ class Wallpaper(object):
         # Add phrase
         phrase = Text(wallpaper)
         phrase.set_text(text['phrase'])
-        phrase.set_font('OpenSans-Light.ttf', 22)
+        phrase.set_font('OpenSans-Light.ttf', 26)
         phrase.set_fill()
         phrase.set_position(100, 100)
 
@@ -30,7 +30,7 @@ class Wallpaper(object):
         # Add translation
         translation = Text(wallpaper)
         translation.set_text(text['translation'])
-        translation.set_font('OpenSans-Light.ttf', 22)
+        translation.set_font('OpenSans-Light.ttf', 26)
         translation.set_fill()
         # Get translation position from phrase position
         translation_x = phrase.position[0] + 20
@@ -42,7 +42,7 @@ class Wallpaper(object):
         # Add verb
         verb = Text(wallpaper)
         verb.set_text(text['verb'])
-        verb.set_font('OpenSans-Light.ttf', 18)
+        verb.set_font('OpenSans-Regular.ttf', 19)
         verb.set_fill()
         # Get verb position from phrase position
         verb_x = phrase.position[0] + 8
@@ -58,7 +58,7 @@ class Wallpaper(object):
             # Add tense
             tense = Text(wallpaper)
             tense.set_text(text['tense'])
-            tense.set_font('OpenSans-Light.ttf', 14)
+            tense.set_font('OpenSans-Regular.ttf', 14)
             tense.set_fill()
             tense_x = next_conjugation_x
             tense_y = verb.position[1] + verb.font_size()[1] + 13
@@ -68,14 +68,14 @@ class Wallpaper(object):
 
             conjugation = Text(wallpaper)
             conjugation.set_text(text['conjugations'])
-            conjugation.set_font('OpenSans-Light.ttf', 13)
+            conjugation.set_font('OpenSans-Light.ttf', 12)
             conjugation.set_fill()
             # Get conjugation position from phrase position
             conjugation_x = next_conjugation_x
             conjugation_y = tense_y + 22
             conjugation.set_position(conjugation_x, conjugation_y)
             # Set the x co-ordinate for next conjugation based on the position and size of this co-ordinate
-            next_conjugation_x = conjugation.position[0] + conjugation.font_size()[1] + 10
+            next_conjugation_x = conjugation.position[0] + conjugation.font_size()[1] + 20
 
             wallpaper.write_text(conjugation.position, conjugation.text, conjugation.fill, conjugation.font)
 
