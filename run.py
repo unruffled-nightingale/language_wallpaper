@@ -9,6 +9,7 @@ while error_count < 5:
     try:
         Main('English', 'French').main()
         break
-    except:
+    except Exception as e:
+        print(e)
         print(error_count)
         error_count += 1
