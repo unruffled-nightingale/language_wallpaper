@@ -88,7 +88,7 @@ class Wallpaper(object):
         """
         # Haven't figured out how to get the current wallpaper,
         # so for the moment we default a stored image.
-        return os.path.join('images','default.jpg')
+        return os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images', 'default.jpg')
 
     def set_wallpaper(self):
         """
