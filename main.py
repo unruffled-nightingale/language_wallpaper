@@ -41,8 +41,3 @@ class Main(object):
         tense = conjugation['tense'].upper()
         conjugations = '\n'.join([e['conjugation'] for e in conjugation['conjugations']])
         return {'tense': tense, 'conjugations': conjugations}
-
-
-if __name__ == '__main__':
-    main = Main('English', 'French')
-    main.main()
