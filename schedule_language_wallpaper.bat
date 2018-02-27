@@ -1,3 +1,7 @@
-rem SETUP SCHEDULE TO RUN DAILY
+rem Get the time in one minute.
 
-schtasks /create /tn language_wallpaper /tr C:\Users\User\PycharmProjects\language_wallpaper\run_language_wallpaper.bat /sc ONCE /st 13:02 /F
+SET filepath=%~dp0run_language_wallpaper.bat
+
+rem Scheduler task to run every time the computer starts up
+
+schtasks /create /tn language_wallpaper /tr %filepath% /sc ONSTART /F

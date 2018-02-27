@@ -1,4 +1,6 @@
 from main import Main
+import traceback
+import sys
 
 # SUPER HACK - There are a few errors that will cause the function to error
 # but will succeed on a retry, i.e. no verb can be found in proverb, unable to lemmatize verb,
@@ -9,7 +11,10 @@ while error_count < 5:
     try:
         Main('English', 'French').main()
         break
-    except Exception as e:
-        print(e)
-        print(error_count)
-        error_count += 1
+    except Exception:
+        print(traceback.format_exc())
+        # or
+        print(sys.exc_info()[0])
+
+
+
