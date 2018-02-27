@@ -1,6 +1,6 @@
 rem Get the time in one minute.
 
-SET filepath=%~dp0run_language_wallpaper.bat
+SET filepath=%~dp0run.bat
 
 rem Scheduler task to run every time the computer starts up
 
