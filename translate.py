@@ -101,14 +101,20 @@ class Language(object):
         for soup in soup.find_all('ul', recursive=False):
             try:
                 proverbs.append(soup.find('li', recursive=False).find('i', recursive=False).text)
-                print('good')
             except AttributeError:
-                print('bad')
                 # Occasionally we cannot find a <i> tag which throws an attribute error when calling .text
                 # In this instance, we just skip the proverb.
                 pass
-        proverbs = [e for e in proverbs if len(e) < 100]
+        proverbs = [self.clean_proverb(e) for e in proverbs if len(e) < 100]
         return choice(proverbs)
+
+    def clean_proverb(self, proverb):
+        """
+        Strips proverbs of any additional whitespace and removes any text in brackets.
+        :return: A cleaned proverb
+        """
+        # Remove any brackets and any text contained within them.
+        return re.sub('\s?\(.*\)', '', proverb).strip()
 
     def quote(self):
         return None
@@ -135,6 +141,21 @@ class English(Language):
         # Remove any quotes that are None, or are longer than 100 characters
         quotes = [quote for quote in quotes if quote is not None and len(quote) < 100]
         return choice(quotes)
+
+    def proverb(self):
+        url = "https://en.wikiquote.org/wiki/{0}_proverbs".format(self.__class__.__name__)
+        html = requests.get(url)
+        soup = BeautifulSoup(html.content, 'html.parser')
+        soup = soup.find_all('div', {'class': 'mw-parser-output'})[0]
+        proverbs = []
+        for soup in soup.find_all('ul', recursive=False):
+            soup = soup.find_all('li', recursive=False)
+            for element in soup:
+                [s.extract() for s in element('ul')]
+            proverbs = proverbs + [e.text for e in soup]
+        # Small hack - last 11 are rubbish that we do not want.
+        proverbs = [self.clean_proverb(e) for e in proverbs[0:-11] if len(e) < 100]
+        return choice(proverbs)
 
 
 class French(Language):

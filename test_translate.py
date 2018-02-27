@@ -115,6 +115,12 @@ class TestEnglish(unittest.TestCase):
         self.assertTrue(len(result) < 101)
         self.assertTrue(type(result) == str)
 
+    def test_clean_proverb(self):
+        proverb = 'A simple proverb (with some brackets).\n\n'
+        result = self.lang.clean_proverb(proverb)
+        expected = 'A simple proverb.'
+        self.assertEqual(result, expected)
+
 
 class TestFrench(unittest.TestCase):
 
