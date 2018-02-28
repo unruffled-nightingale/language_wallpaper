@@ -92,12 +92,13 @@ class Wallpaper(object):
 
     def set_wallpaper(self):
         """
-        Sets wallpaper.jpg as the Desktop background for a windows PC.
+        Sets wallpaper.bmp as the Desktop background for a windows PC.
         """
-        # Get the full path of wallpaper.jpg
+        # Get the full path of wallpaper.bmp
         parent_dir = os.path.dirname(os.path.realpath(__file__))
-        image_path = os.path.join(parent_dir, 'wallpaper.png')
-        # Set wallpaper.jpg as the Desktop background
+        image_path = os.path.join(parent_dir, 'wallpaper.bmp')
+        #print(os.path.normpath(image_path))
+        # Set wallpaper.bmp as the Desktop background
         ctypes.windll.user32.SystemParametersInfoW(20, 0, image_path, 0)
 
 
@@ -112,7 +113,7 @@ class Edit(object):
         Saves the edited image.
         """
         parent_dir = os.path.dirname(os.path.realpath(__file__))
-        image_path = os.path.join(parent_dir, 'wallpaper.png')
+        image_path = os.path.join(parent_dir, 'wallpaper.bmp')
         self.image.save(image_path, quality=100)
 
     def write_text(self, position, text, fill, font):
