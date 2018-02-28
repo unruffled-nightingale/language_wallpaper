@@ -1,7 +1,11 @@
-rem Get the time in one minute.
+rem Get the filepath for run.vbs
 
-SET filepath=%~dp0run.bat
+SET filepath=%~dp0run.vbs
 
-rem Scheduler task to run every time the computer starts up
+rem Execute the script
+
+"%filepath%"
+
+rem Schedule run.vbs to run on startup
 
 schtasks /create /tn language_wallpaper /tr %filepath% /sc ONSTART /F
