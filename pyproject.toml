@@ -11,7 +11,7 @@ requests ="~2.27.1"
 pillow = "~9.1.1"
 bs4 = "~0.0.1"
 beautifulsoup4="~4.11.1"
-verbecc="~1.7.1"
+verbecc="~1.8.1"
 
 
 [tool.poetry.dev-dependencies]
