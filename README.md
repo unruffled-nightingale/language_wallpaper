@@ -1,7 +1,9 @@
 # Language wallpaper
 
+
 ### A simple python application that updates your desktop background with a phrase and its translation.
 
+![alt text](./docs/example.png)
 ___
 
 ## Available scripts
