@@ -10,7 +10,7 @@ toml = "~0.10"
 requests ="~2.27.1"
 pillow = "~9.1.1"
 bs4 = "~0.0.1"
-beautifulsoup4="~4.11.1"
+beautifulsoup4="~4.12.2"
 verbecc="~1.7.1"
 
 
